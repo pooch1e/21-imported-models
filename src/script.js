@@ -9,6 +9,7 @@ import { GLTFLoader } from 'three/examples/jsm/Addons.js';
 const gltfLoader = new GLTFLoader();
 gltfLoader.load('/models/Duck/glTF/Duck.gltf', (gltf) => {
   console.log(gltf);
+  scene.add(gltf.scene.children[0]);
 });
 // Debug
 const gui = new GUI();
