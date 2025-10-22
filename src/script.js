@@ -7,14 +7,18 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 /**
  * Base
  */
+const gltfLoader = new GLTFLoader();
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('/draco/');
 
-const gltfLoader = new GLTFLoader();
 gltfLoader.setDRACOLoader(dracoLoader);
-dracoLoader.load('/models/Duck/glTF-Draco/Duck.gltf', (gltf) => {
+gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) => {
   console.log(gltf);
-  scene.add(gltf.scene.children[0]);
+  gltf.scene.scale.set(0.025, 0.025, 0.025);
+  scene.add(gltf.scene);
+
+  const mixer = new THREE.AnimationMixer()
+  
 });
 // Debug
 const gui = new GUI();
