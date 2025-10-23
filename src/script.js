@@ -12,13 +12,15 @@ const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath('/draco/');
 
 gltfLoader.setDRACOLoader(dracoLoader);
+let mixer = null;
 gltfLoader.load('/models/Fox/glTF/Fox.gltf', (gltf) => {
   console.log(gltf);
   gltf.scene.scale.set(0.025, 0.025, 0.025);
-  scene.add(gltf.scene);
 
-  const mixer = new THREE.AnimationMixer()
-  
+  mixer = new THREE.AnimationMixer(gltf.scene);
+  const action = mixer.clipAction(gltf.animations[1]);
+  action.play();
+  scene.add(gltf.scene);
 });
 // Debug
 const gui = new GUI();
@@ -125,6 +127,11 @@ const tick = () => {
 
   // Update controls
   controls.update();
+
+  // Update animation
+  if (mixer) {
+    mixer.update(deltaTime)
+  }
 
   // Render
   renderer.render(scene, camera);
